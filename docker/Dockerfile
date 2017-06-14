@@ -51,3 +51,20 @@ RUN NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
     rm -rf /src /opt/stxxl /usr/local/bin/stxxl_tool /usr/local/lib/libosrm*
 
 EXPOSE 5000
+
+
+RUN  npm install -g pm2 \
+  && mkdir /pm2home     \
+  && chmod 777 /pm2home \
+  && rm -rf /pm2home/logs \
+  && ln -s /home/LogFiles /pm2home/logs \
+  && echo "root:Docker!" | chpasswd \
+  && apt update \
+  && apt install -y --no-install-recommends openssh-server \
+  && chmod 755 /bin/init_container.sh 
+
+COPY sshd_config /etc/ssh/
+
+EXPOSE 2222
+
+CMD ["/bin/init_container.sh"]
