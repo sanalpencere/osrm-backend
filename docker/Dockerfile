@@ -53,6 +53,8 @@ RUN NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
 EXPOSE 5000
 
 
+COPY init_container.sh /bin/
+
 RUN  npm install -g pm2 \
   && mkdir /pm2home     \
   && chmod 777 /pm2home \
