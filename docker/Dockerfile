@@ -52,8 +52,7 @@ RUN NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
 
 EXPOSE 5000
 
-COPY ./src /src
-WORKDIR /src
+RUN apt-get -y install nodejs
 
 COPY init_container.sh /bin/
 
