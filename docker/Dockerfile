@@ -38,6 +38,8 @@ RUN git clone https://github.com/Project-OSRM/osrm-backend.git \
 
 RUN echo "GIT END"
 
+RUN ls
+
 RUN mkdir -p build && \
 cd build && \
 cmake .. && \
