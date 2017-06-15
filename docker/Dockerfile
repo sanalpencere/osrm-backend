@@ -21,14 +21,15 @@ EXPOSE 2222
 
 CMD ["/bin/init_container.sh"]
 
-RUN mkdir /opt
-WORKDIR /opt
+RUN apt install build-essential git cmake pkg-config \
+RUN libbz2-dev libstxxl-dev libstxxl1v5 libxml2-dev \
+RUN libzip-dev libboost-all-dev lua5.2 liblua5.2-dev libtbb-dev
 
 RUN mkdir -p build && \
 cd build && \
 cmake .. && \
 cmake --build . && \
-sudo cmake --build . --target install && \
+cmake --build . --target install && \
 
 RUN wget http://download.geofabrik.de/europe-latest.osm.pbf
 RUN osrm-extract europe-latest.osm.pbf -p profiles/car.lua
