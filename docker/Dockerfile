@@ -34,7 +34,7 @@ EXPOSE 2222
 CMD ["/bin/init_container.sh"]
 
 RUN git clone https://github.com/Project-OSRM/osrm-backend.git && cd osrm-backend && ls && echo "GIT ENT"
-RUN mkdir -p build && \
+RUN cd osrm-backend && ls && mkdir -p build && \
 cd build && \
 cmake .. && \
 cmake --build . && \
