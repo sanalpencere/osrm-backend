@@ -1,8 +1,12 @@
 FROM ubuntu:16.04
 MAINTAINER Azure App Services Container Images <appsvc-images@microsoft.com>
 
-RUN apt install nodejs
-RUN apt install npm
+
+RUN apt-get install python-software-properties
+RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+RUN apt-get install nodejs
+
+
 RUN apt install build-essential git cmake pkg-config \ 
 libbz2-dev libstxxl-dev libstxxl1v5 libxml2-dev \ 
 libzip-dev libboost-all-dev lua5.2 liblua5.2-dev libtbb-dev
