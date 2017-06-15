@@ -1,12 +1,12 @@
 FROM ubuntu:16.04
 MAINTAINER ovidos
 
+RUN apt-get -qq update
+RUN apt-get -qq -y install curl
 
-RUN apt-get install --yes curl
 RUN curl --silent --location https://deb.nodesource.com/setup_6.x | sudo bash -
 RUN apt-get install --yes nodejs
 RUN apt-get install --yes build-essential
-
 
 
 RUN apt install build-essential git cmake pkg-config \ 
