@@ -33,7 +33,7 @@ EXPOSE 2222
 
 CMD ["/bin/init_container.sh"]
 
-RUN git clone https://github.com/Project-OSRM/osrm-backend.git \
+RUN git clone https://github.com/Project-OSRM/osrm-backend.git
 RUN cd osrm-backend
 RUN echo "GIT END"
 RUN ls
