@@ -1,9 +1,12 @@
 FROM ubuntu:16.04
-MAINTAINER Azure App Services Container Images <appsvc-images@microsoft.com>
+MAINTAINER ovidos
 
 
-RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-RUN apt-get install nodejs
+RUN apt-get install --yes curl
+RUN curl --silent --location https://deb.nodesource.com/setup_6.x | sudo bash -
+RUN apt-get install --yes nodejs
+RUN apt-get install --yes build-essential
+
 
 
 RUN apt install build-essential git cmake pkg-config \ 
