@@ -33,12 +33,7 @@ EXPOSE 2222
 
 CMD ["/bin/init_container.sh"]
 
-RUN git clone https://github.com/Project-OSRM/osrm-backend.git
-RUN cd osrm-backend
-RUN echo "GIT END"
-RUN ls
-RUN cd osrm-backend
-
+RUN git clone https://github.com/Project-OSRM/osrm-backend.git && cd osrm-backend && ls && echo "GIT ENT"
 RUN mkdir -p build && \
 cd build && \
 cmake .. && \
@@ -46,12 +41,7 @@ cmake --build . && \
 cmake --build . --target install
 
 RUN echo "BUILD END"
-
-RUN wget http://download.geofabrik.de/europe-latest.osm.pbf
-RUN osrm-extract europe-latest.osm.pbf -p profiles/car.lua
-RUN osrm-contract europe-latest.osrm
-RUN osrm-routed europe-latest.osrm
-
+RUN wget http://download.geofabrik.de/europe-latest.osm.pbf && osrm-extract europe-latest.osm.pbf -p profiles/car.lua && osrm-contract europe-latest.osrm && osrm-routed europe-latest.osrm
 RUN echo "OSRM END"
 
 EXPOSE 5000
