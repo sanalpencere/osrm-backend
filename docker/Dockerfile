@@ -1,8 +1,14 @@
-FROM node:6.9.3
+FROM ubuntu:16.04
 MAINTAINER Azure App Services Container Images <appsvc-images@microsoft.com>
- 
+
+RUN apt install node 
+RUN apt install build-essential git cmake pkg-config \ 
+libbz2-dev libstxxl-dev libstxxl1v5 libxml2-dev \ 
+libzip-dev libboost-all-dev lua5.2 liblua5.2-dev libtbb-dev
+
 COPY init_container.sh /bin/
- 
+
+
 RUN  npm install -g pm2 \
      && mkdir /pm2home     \
      && chmod 777 /pm2home \
@@ -19,9 +25,7 @@ EXPOSE 2222
 
 CMD ["/bin/init_container.sh"]
 
-RUN apt install build-essential git cmake pkg-config \ 
-libbz2-dev libstxxl-dev libstxxl1v5 libxml2-dev \ 
-libzip-dev libboost-all-dev lua5.2 liblua5.2-dev libtbb-dev
+
 
 RUN mkdir -p build && \
 cd build && \
