@@ -52,8 +52,9 @@ RUN NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
 
 EXPOSE 5000
 
-RUN apt-get -y install nodejs
-
+RUN apk add --update openssh \
+RUN apk add --update nodejs \
+rc-update add sshd
 COPY init_container.sh /bin/
 
 RUN  npm install -g pm2 \
@@ -62,8 +63,6 @@ RUN  npm install -g pm2 \
   && rm -rf /pm2home/logs \
   && ln -s /home/LogFiles /pm2home/logs \
   && echo "root:Docker!" | chpasswd \
-  && apt update \
-  && apt install -y --no-install-recommends openssh-server \
   && chmod 755 /bin/init_container.sh 
 
 COPY sshd_config /etc/ssh/
