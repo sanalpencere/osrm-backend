@@ -3,6 +3,25 @@ FROM alpine:3.5
 RUN mkdir /opt
 WORKDIR /opt
 
+RUN apk add --update openssh \
+RUN apk add --update nodejs \
+rc-update add sshd
+COPY init_container.sh /bin/
+
+RUN  npm install -g pm2 \
+  && mkdir /pm2home     \
+  && chmod 777 /pm2home \
+  && rm -rf /pm2home/logs \
+  && ln -s /home/LogFiles /pm2home/logs \
+  && echo "root:Docker!" | chpasswd \
+  && chmod 755 /bin/init_container.sh 
+
+COPY sshd_config /etc/ssh/
+
+EXPOSE 2222
+
+CMD ["/bin/init_container.sh"]
+
 RUN NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
     echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
     apk update && \
@@ -52,21 +71,4 @@ RUN NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
 
 EXPOSE 5000
 
-RUN apk add --update openssh \
-RUN apk add --update nodejs \
-rc-update add sshd
-COPY init_container.sh /bin/
 
-RUN  npm install -g pm2 \
-  && mkdir /pm2home     \
-  && chmod 777 /pm2home \
-  && rm -rf /pm2home/logs \
-  && ln -s /home/LogFiles /pm2home/logs \
-  && echo "root:Docker!" | chpasswd \
-  && chmod 755 /bin/init_container.sh 
-
-COPY sshd_config /etc/ssh/
-
-EXPOSE 2222
-
-CMD ["/bin/init_container.sh"]
