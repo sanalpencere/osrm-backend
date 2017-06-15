@@ -3,6 +3,7 @@ MAINTAINER ovidos
 
 RUN apt-get -qq update
 RUN apt-get -qq -y install curl
+RUN apt-get -qq -y install sudo
 
 RUN curl --silent --location https://deb.nodesource.com/setup_6.x | sudo bash -
 RUN apt-get install --yes nodejs
