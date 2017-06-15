@@ -33,13 +33,14 @@ EXPOSE 2222
 
 CMD ["/bin/init_container.sh"]
 
-
+RUN git clone https://github.com/Project-OSRM/osrm-backend.git
+RUN cd osrm-backend
 
 RUN mkdir -p build && \
 cd build && \
 cmake .. && \
 cmake --build . && \
-cmake --build . --target install && \
+cmake --build . --target install
 
 RUN wget http://download.geofabrik.de/europe-latest.osm.pbf
 RUN osrm-extract europe-latest.osm.pbf -p profiles/car.lua
