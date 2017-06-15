@@ -2,7 +2,6 @@ FROM ubuntu:16.04
 MAINTAINER Azure App Services Container Images <appsvc-images@microsoft.com>
 
 
-RUN apt-get install python-software-properties
 RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 RUN apt-get install nodejs
 
